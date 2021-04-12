@@ -2,9 +2,14 @@
 
 here is a demo of one of projects I have done over break:
 
-https://drive.google.com/file/d/1jkgsdeDj2JuReyFxtAhja0xQpm4hxWqy/view?usp=sharing
+App name: DiningBuddy
+Purpose: This is an app helping students to determine at which dining hall on a particular campus that they will eat at, based on the food being served at a particular time and location, as well as the student's preferences. 
 
-Note: Yes, this is an app helping students to determine at which dining hall on a particular campus that they will eat at, based on the food being served at a particular time and location, as well as the student's preferences. Because the student type in the food into the search bar and data is stored with an online database, there is no need to use web crawlers or any Computer Science tools that would violate a websites Terms of Service (TOS)/
+Note: In developing the app, I was careful not to violate any website Terms of Service (TOS).
+
+Link to video of demo: https://drive.google.com/file/d/1NK9MkdxZQRePJjBe-w0TPV2cgopjylHj/view?usp=sharing
+
+
 
 
 
