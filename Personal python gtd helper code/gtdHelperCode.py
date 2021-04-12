@@ -90,13 +90,53 @@ def splitIntoStringList(theStr, charSplitter):
 
     # end of while loop, last step is to return from function
 
-    print("shown following for testing purposes", theList[2], "\n\n")
+    # TODO
+    #print("shown following for testing purposes", theList[2], "\n\n")
     return theList;
     
     
+    
+
+"""
+def extractTime():
+        if (foundInText(firstDateToSplit, "2021")):
+            firstTimeSplitPos = firstDateToSplit.find("2021")
+            theDay = firstDateToSplit[0 : firstTimeSplitPos + 4]
+            stringifiedBeginTime = firstDateToSplit[firstTimeSplitPos + 5: -4]
+                        
+            theFirstHr = stringifiedBeginTime[0 : -3]
+            theFirstMin = stringifiedBeginTime[-2 :]
+
+    
+            # TODO - test done
+            # print(firstDateToSplit)
+            # print(stringifiedBeginTime, "has hr", theFirstHr, "and min", theFirstMin)
+            
+            beginTime = int(theFirstHr)*100 + int(theFirstMin)
+            
+            timeFormattedDate = datetime.strptime(theDay, '%m/%d/%Y')
+
+            # TODO - test done
+            # print(timeFormattedDate, "\n\n\n")
+            
+        /*    stringFormattedDate = timeFormattedDate.strftime('%a,  %m/%d/%Y %H:%M:%S')
+            
+            # TODO - test done
+            print("Date in dd/mm/yyy format: ", stringFormattedDate)*/
+
+            
+            # TODO - test done
+            # print(beginTime, "\n\n")
+        #else:
+            # I’m not processing dates before Jan 1 2021. Too hard.
+
+"""
 
 def automaticEventCreation(inputStr):
     # takes in a string called "inputStr" and returns a CalEvent
+    
+    # lets make following assumptions
+    # every event is contained within a single day (as opposed to spanning days)
     stringList = splitIntoStringList(inputStr, ',')
     firstTimeSplitPos = 0
     secondTimeSplitPos = 0
@@ -111,52 +151,71 @@ def automaticEventCreation(inputStr):
     name = stringList[0]
     firstDateToSplit = stringList[1]
     secondDateToSplit = stringList[2]
-    
+
+    # TODO - test done
     #print("shown following for testing purposes", inputStr, "\n\n")
     
-    if(stringList.len() > 0):
-    {
-        if (foundInText(firstDateToSplit, "2021"))
-        {
-            firstTimeSplitPos = firstDateToSplit.find("2021");
-            theDay = firstDateToSplit.substr(0, firstTimeSplitPos - 1);
-            stringifiedBeginTime = firstDateToSplit.substr(firstTimeSplitPos);
+    if(len(stringList) > 0):
+        if (foundInText(firstDateToSplit, "2021")):
+            firstTimeSplitPos = firstDateToSplit.find("2021")
+            theDay = firstDateToSplit[0 : firstTimeSplitPos + 4]
+            stringifiedBeginTime = firstDateToSplit[firstTimeSplitPos + 5: -4]
+                        
+            theFirstHr = stringifiedBeginTime[0 : -3]
+            theFirstMin = stringifiedBeginTime[-2 :]
 
-            beginTime = std::stoi(stringifiedBeginTime);
-        }
-        else
-        {
+    
+            # TODO - test done
+            # print(firstDateToSplit)
+            # print(stringifiedBeginTime, "has hr", theFirstHr, "and min", theFirstMin)
+            
+            beginTime = int(theFirstHr)*100 + int(theFirstMin)
+            
+            timeFormattedDate = datetime.strptime(theDay, '%m/%d/%Y')
+
+            # TODO - test done
+            # print(timeFormattedDate, "\n\n\n")
+            
+            stringFormattedDate = timeFormattedDate.strftime('%a,  %m/%d/%Y %H:%M:%S')
+            
+            # TODO - test done
+            print("Date in dd/mm/yyy format: ", stringFormattedDate)
+
+            
+            # TODO - test done
+            # print(beginTime, "\n\n")
+        #else:
             # I’m not processing dates before Jan 1 2021. Too hard.
-        }
 
 
-        if (foundInText(secondDateToSplit, "2021")) {
-            secondTimeSplitPos = firstDateToSplit.find("2021");
-            #  theDay = secondDateToSplit.substr(0, secondTimeSplitPos-1);
-            stringifiedEndTime = secondDateToSplit.substr(secondTimeSplitPos);
+        if (foundInText(secondDateToSplit, "2021")):
+            secondTimeSplitPos = secondDateToSplit.find("2021")
+            #  theDay = secondDateToSplit[0 : secondTimeSplitPos-1+1]
+            stringifiedEndTime = secondDateToSplit[secondTimeSplitPos + 5: -4]
+            
+            theSecondHr = stringifiedEndTime[0 : -3]
+            theSecondMin = stringifiedEndTime[-2 :]
 
-            endTime = std::stoi(stringifiedEndTime);
-        }
-        else
-        {
+    
+            # TODO - test done
+            # print(secondDateToSplit)
+            # print(stringifiedEndTime, "has hr", theSecondHr, "and min", theSecondMin)
+            
+            endTime = int(theSecondHr)*100 + int(theSecondMin)
+            
+            # TODO - test done
+            # print(endTime, "\n\n")
+
+        #else
             # I’m not processing dates before Jan 1 2021. Too hard.
-        }
 
         # call function grabDay in here to grab day of week and store in day
         #Following C++ code concerning time is limited to C++20, which I am having trouble to download
         #- receive strings and transform them into date objects
         #- determine the difference in days between two date objects
         #- determine the day of the week of a particular date
-
-
-        # call function grabTime in here  to grab time and store in beginTime or endTime
-
-        # Function grab time makes two substrings (one on each side of the colon) and
-        # converts those substrings into size_t (using int to size_t casting if necessary)
-        # before doing the math to store as a 3 or 4 dig number representing time
-        # (like how you did it for app inventor)
-     }
-    
+         
+     
     testCalEvent = CalEvent(name, theDay.lower(), beginTime, endTime, False)
     return testCalEvent;
 
@@ -175,6 +234,7 @@ def autoConverter():
     while (not foundInText(fin, ".csv")):
         fin = input("text file must end in .csv: ")
     
+    print("\n")
 
     fin = "inputFiles/" + fin
 
@@ -217,11 +277,12 @@ def main():
     if(anInput == "1"):
         theCondition = True
         while (theCondition):
-            allCalEvents.append(manualEventCreation())
+            # FIXME: Add manualEventCreation as a function
+            #allCalEvents.append(manualEventCreation())
             
             myStr = input("\nwant to add new event (Y|N): ")
             print("\n\n\n")
-            theCondition = lower(myStr[0]) == 'y'
+            theCondition = (myStr.lower())[0] == 'y'
 
     elif (anInput == "2"):
         autoConverter()
