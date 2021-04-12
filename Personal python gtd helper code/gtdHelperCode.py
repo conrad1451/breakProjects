@@ -61,6 +61,7 @@ def stringifyCalEvent(aCalEvent):
     return line1 + line2 + line3 + line4 + line5
 
 
+
  
 def elapsedTimeBetweenTwoDates(firstTime, secondTime):
     fTime = datetime.strptime(firstTime, '%m/%d/%Y')
@@ -71,6 +72,7 @@ def elapsedTimeBetweenTwoDates(firstTime, secondTime):
     print("the first time is: ", fTime)
     print("and the second time is: ", sTime)
     
+
 
 
 def splitIntoStringList(theStr, charSplitter):
@@ -93,44 +95,29 @@ def splitIntoStringList(theStr, charSplitter):
     # TODO
     #print("shown following for testing purposes", theList[2], "\n\n")
     return theList;
+
+
+
+
+def grabDay(myStringifiedDate):
+    commaPos = myStringifiedDate.find(",")
+    
+    return myStringifiedDate[commaPos-3 : commaPos]
     
     
     
-
-"""
-def extractTime():
-        if (foundInText(firstDateToSplit, "2021")):
-            firstTimeSplitPos = firstDateToSplit.find("2021")
-            theDay = firstDateToSplit[0 : firstTimeSplitPos + 4]
-            stringifiedBeginTime = firstDateToSplit[firstTimeSplitPos + 5: -4]
-                        
-            theFirstHr = stringifiedBeginTime[0 : -3]
-            theFirstMin = stringifiedBeginTime[-2 :]
-
     
-            # TODO - test done
-            # print(firstDateToSplit)
-            # print(stringifiedBeginTime, "has hr", theFirstHr, "and min", theFirstMin)
-            
-            beginTime = int(theFirstHr)*100 + int(theFirstMin)
-            
-            timeFormattedDate = datetime.strptime(theDay, '%m/%d/%Y')
+def grabTime(dateToSplit):
+    timeSplitPos = dateToSplit.find("2021")
+    stringifiedTime = dateToSplit[timeSplitPos + 5: -4]
+    
+    theHr = stringifiedTime[0 : -3]
+    theMin = stringifiedTime[-2 :]
+    
+    return int(theHr)*100 + int(theMin)
+    
 
-            # TODO - test done
-            # print(timeFormattedDate, "\n\n\n")
-            
-        /*    stringFormattedDate = timeFormattedDate.strftime('%a,  %m/%d/%Y %H:%M:%S')
-            
-            # TODO - test done
-            print("Date in dd/mm/yyy format: ", stringFormattedDate)*/
 
-            
-            # TODO - test done
-            # print(beginTime, "\n\n")
-        #else:
-            # I’m not processing dates before Jan 1 2021. Too hard.
-
-"""
 
 def automaticEventCreation(inputStr):
     # takes in a string called "inputStr" and returns a CalEvent
@@ -142,11 +129,13 @@ def automaticEventCreation(inputStr):
     secondTimeSplitPos = 0
     
     # FIXME
-    theDay = ""
+    dayOfWeek = ""
     stringifiedBeginTime = ""
     stringifiedEndTime = ""
     beginTime = 0
     endTime = 0
+    
+    dayOfWeek = ""
     
     name = stringList[0]
     firstDateToSplit = stringList[1]
@@ -157,66 +146,41 @@ def automaticEventCreation(inputStr):
     
     if(len(stringList) > 0):
         if (foundInText(firstDateToSplit, "2021")):
+            
             firstTimeSplitPos = firstDateToSplit.find("2021")
+            beginTime = grabTime(firstDateToSplit)
+            
             theDay = firstDateToSplit[0 : firstTimeSplitPos + 4]
-            stringifiedBeginTime = firstDateToSplit[firstTimeSplitPos + 5: -4]
-                        
-            theFirstHr = stringifiedBeginTime[0 : -3]
-            theFirstMin = stringifiedBeginTime[-2 :]
 
-    
-            # TODO - test done
-            # print(firstDateToSplit)
-            # print(stringifiedBeginTime, "has hr", theFirstHr, "and min", theFirstMin)
-            
-            beginTime = int(theFirstHr)*100 + int(theFirstMin)
-            
             timeFormattedDate = datetime.strptime(theDay, '%m/%d/%Y')
-
-            # TODO - test done
-            # print(timeFormattedDate, "\n\n\n")
-            
             stringFormattedDate = timeFormattedDate.strftime('%a,  %m/%d/%Y %H:%M:%S')
             
             # TODO - test done
-            print("Date in dd/mm/yyy format: ", stringFormattedDate)
-
+            # print("Date in dd/mm/yyy format: ", stringFormattedDate)
             
+            dayOfWeek = grabDay(stringFormattedDate)
+            
+            print("Day of week: ", dayOfWeek)
             # TODO - test done
-            # print(beginTime, "\n\n")
+            print("begin time: ", beginTime)
+
         #else:
             # I’m not processing dates before Jan 1 2021. Too hard.
 
 
         if (foundInText(secondDateToSplit, "2021")):
+            
             secondTimeSplitPos = secondDateToSplit.find("2021")
-            #  theDay = secondDateToSplit[0 : secondTimeSplitPos-1+1]
-            stringifiedEndTime = secondDateToSplit[secondTimeSplitPos + 5: -4]
-            
-            theSecondHr = stringifiedEndTime[0 : -3]
-            theSecondMin = stringifiedEndTime[-2 :]
-
-    
+            endTime = grabTime(secondDateToSplit)
             # TODO - test done
-            # print(secondDateToSplit)
-            # print(stringifiedEndTime, "has hr", theSecondHr, "and min", theSecondMin)
-            
-            endTime = int(theSecondHr)*100 + int(theSecondMin)
-            
-            # TODO - test done
-            # print(endTime, "\n\n")
+            print("end time: ", endTime, "\n\n")
 
         #else
             # I’m not processing dates before Jan 1 2021. Too hard.
 
-        # call function grabDay in here to grab day of week and store in day
-        #Following C++ code concerning time is limited to C++20, which I am having trouble to download
-        #- receive strings and transform them into date objects
-        #- determine the difference in days between two date objects
-        #- determine the day of the week of a particular date
          
      
-    testCalEvent = CalEvent(name, theDay.lower(), beginTime, endTime, False)
+    testCalEvent = CalEvent(name, dayOfWeek.lower(), beginTime, endTime, False)
     return testCalEvent;
 
 
